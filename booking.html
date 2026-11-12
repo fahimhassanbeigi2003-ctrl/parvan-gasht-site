@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>رزرو تور مشهد | پروان گشت کاسپین</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#12263a;--mute:#566b7c;--paper:#f2f6f6;--card:#fff;--line:#d3dedf;--tile:#0e8a8c;--tile-d:#0a6567;--tile-l:#e3f3f2;--gold:#b98a1e;--bad:#b3261e;color-scheme:light}
+*{box-sizing:border-box}
+html{scroll-padding-top:12px}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.8 Vazirmatn,Tahoma,sans-serif;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 48px}
+header{padding:8px 0 20px;border-bottom:3px solid var(--tile);margin-bottom:20px}
+h1{font-size:28px;font-weight:800;margin:0;line-height:1.4}
+header p{margin:4px 0 0;color:var(--mute);font-size:15px}
+h2{font-size:18px;font-weight:800;margin:28px 0 10px}
+.seg{display:grid;gap:6px}
+.seg.t4{grid-template-columns:repeat(2,1fr)}
+.seg.t2{grid-template-columns:repeat(2,1fr)}
+.seg button{font:inherit;font-weight:600;padding:10px 8px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--tile);border-color:var(--tile);color:#fff}
+.lbl{font-size:14px;color:var(--mute);margin:14px 0 6px}
+.board{display:grid;gap:8px}
+.row{display:block;position:relative;background:var(--card);border:1.5px solid var(--line);border-inline-start:6px solid var(--line);border-radius:8px;padding:12px 14px;cursor:pointer}
+.row input{position:absolute;opacity:0}
+.row:has(input:checked){background:var(--tile-l);border-color:var(--tile);border-inline-start-color:var(--tile-d)}
+.row:has(input:focus-visible){outline:3px solid var(--gold);outline-offset:2px}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.nm{font-weight:800;font-size:17px}
+.pr{font-weight:800;font-size:18px;white-space:nowrap}
+.pr small{font-weight:400;font-size:13px;color:var(--mute);margin-inline-start:3px}
+.meta{font-size:14px;color:var(--mute);margin-top:2px}
+.ph{display:block;width:100%;height:150px;object-fit:cover;border-radius:6px;margin-bottom:8px;background:#e3eaea}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tags span{font-size:13px;background:#eef3f3;border-radius:999px;padding:0 10px}
+.tags .buf{background:#f6ecd2;color:#6d4f08}
+.xtra{font-size:13px;color:var(--mute);margin-top:4px}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:14px;margin-bottom:10px}
+.card h3{margin:0 0 8px;font-size:16px;font-weight:800;display:flex;justify-content:space-between;align-items:center}
+.grp{font-size:13px;font-weight:600;color:var(--tile-d)}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.f .full{grid-column:1/-1}
+label.fl{display:block;font-size:14px;color:var(--mute)}
+input[type=text],input[type=tel]{width:100%;font:inherit;padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+input[type=text]:focus,input[type=tel]:focus,button:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+.bad{border-color:var(--bad)!important}
+.err{display:block;color:var(--bad);font-size:13px;min-height:0}
+.ltr{direction:ltr;text-align:right}
+.step{display:flex;align-items:center;gap:14px}.step .btn{background:#fff;border:1.5px solid var(--tile);color:var(--tile-d);width:44px;height:44px;padding:0;font-size:22px;line-height:1}.step span{font-weight:800;font-size:22px;min-width:32px;text-align:center}
+.cs{font-size:14px;color:var(--tile-d);font-weight:600;margin:8px 0 12px}
+.btn{font:inherit;font-weight:800;border:0;border-radius:8px;padding:12px 16px;cursor:pointer}
+.add{background:#fff;border:1.5px dashed var(--tile);color:var(--tile-d);width:100%}
+.rm{background:none;color:var(--bad);padding:0;font-weight:600;font-size:14px}
+.go{background:var(--tile-d);color:#fff;width:100%;font-size:17px;margin-top:14px}
+.sum{background:var(--ink);color:#fff;border-radius:10px;padding:14px;margin-top:20px}
+.sum b{font-size:20px}
+.note{font-size:13px;color:var(--mute);margin-top:8px}
+.sum .note{color:#b9c8d3}
+.chk{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:14px}
+.chk input{margin-top:7px;width:20px;height:20px;flex:none}
+#out{display:none;margin-top:14px}
+#out textarea{width:100%;height:220px;font:inherit;font-size:14px;padding:10px;border:1.5px solid var(--line);border-radius:8px}
+@media (prefers-reduced-motion:no-preference){.row,.seg button{transition:background .15s,border-color .15s}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>رزرو تور مشهد</h1>
+  <p>پروان گشت کاسپین؛ قطار و هتل در یک بسته</p>
+</header>
+
+<h2>قطار و مدت اقامت</h2>
+<div class="lbl">قطار</div>
+<div class="seg t4" id="trains"></div>
+<div class="lbl">مدت اقامت</div>
+<div class="seg t2" id="nights"></div>
+
+<h2>انتخاب هتل</h2>
+<div class="board" id="hotels"></div>
+<span class="err" id="hotelErr"></span>
+
+<h2>مشخصات مسافران</h2>
+<div class="lbl">تعداد کل مسافران</div>
+<div class="step"><button type="button" class="btn" id="plus" aria-label="افزایش تعداد مسافران">+</button><span id="cnt">۱</span><button type="button" class="btn" id="minus" aria-label="کاهش تعداد مسافران">−</button></div>
+<div class="cs" id="cs"></div>
+<p class="note" style="margin-top:0">برای هر مسافر، از جمله خردسال و نوزاد، تاریخ تولد، نام، نام خانوادگی و کد ملی لازم است. گروه سنی از تاریخ تولد و تاریخ امروز محاسبه می‌شود.</p>
+<div id="pax"></div>
+
+<h2>تماس با سرپرست رزرو</h2>
+<div class="card"><div class="f">
+  <div><label class="fl" for="cn">نام و نام خانوادگی</label><input type="text" id="cn" autocomplete="name"><span class="err"></span></div>
+  <div><label class="fl" for="cp">شماره موبایل</label><input type="tel" id="cp" class="ltr" inputmode="numeric" placeholder="09123456789" autocomplete="tel"><span class="err"></span></div>
+</div></div>
+
+<div class="sum" id="sum"></div>
+
+<div class="chk"><input type="checkbox" id="ok"><label for="ok">با ارسال مشخصات هویتی مسافران (نام، کد ملی، تاریخ تولد) برای آژانس پروان گشت موافقم.</label></div>
+<span class="err" id="okErr"></span>
+<button type="button" class="btn go" id="send">آماده‌سازی و ارسال درخواست برای آژانس</button>
+<p class="note">این صفحه اطلاعات شما را ذخیره نمی‌کند. متن درخواست فقط روی گوشی ساخته می‌شود و شما انتخاب می‌کنید برای چه کسی ارسال شود. موجودی هتل و قطار، تخفیف‌ها و قیمت نهایی را آژانس تأیید می‌کند.</p>
+
+<div id="out">
+  <textarea id="txt" readonly></textarea>
+  <button type="button" class="btn go" id="copy">کپی متن درخواست</button>
+</div>
+</div>
+
+<script>
+/* ===== نرخ‌نامه (میلیون تومان، قیمت پایه ۲ شب) =====
+   ترتیب: [نام، نوع، منو، آدرس، فاصله پیاده تا حرم (دقیقه)، هر شب اضافه، [رجا، غدیر، ۶ تخته، فدک/زندگی]] */
+var TRAINS=['رجا','غدیر','۶ تخته','فدک / زندگی'];
+var HOTELS=[
+['مرتضوی','آپارتمان','انتخابی','امام رضا ۸',12,1.2,[7.4,7.7,6.4,13.1]],
+['مدینه النور','آپارتمان','انتخابی','امام رضا ۵',6,1.5,[8.2,8.56,7.2,13.9]],
+['زنبق','آپارتمان','انتخابی','سرشور ۱۲',2,1.5,[8,8.36,7,13.7]],
+['مارین','آپارتمان','انتخابی','امام رضا ۵',10,1.3,[7.6,7.9,6.6,13.3]],
+['پایتخت','آپارتمان','انتخابی','امام رضا ۱',3,1.7,[8.4,8.7,7.4,14.1]],
+['میبد','۲ ستاره','انتخابی','خیابان شیرازی',7,1.6,[8.2,8.5,7.2,13.9]],
+['گوهر','۳ ستاره','انتخابی','امام رضا ۵',5,1.9,[8.8,9.1,7.8,14.5]],
+['منجی','۳ ستاره','انتخابی','جنوب بازار رضا',3,3.2,[11.4,11.7,10.4,17.1]],
+['نور','۳ ستاره','بوفه','میدان بیت‌المقدس',5,3.1,[11.2,10.74,10.2,16.9]],
+['حیات شرق','آپارتمان ۳ ستاره','بوفه','نواب صفوی ۱۰',12,4.08,[13.16,13.46,12.16,18.86]],
+['کیانا','۴ ستاره','بوفه','امام رضا ۲',4,5.6,[16.2,16.5,15.2,21.9]]
+];
+var SLUG=['mortazavi','madinat-al-nour','zanbagh','marine','paytakht','meybod','gohar','monji','noor','hayat-sharq','kiana'];
+var S={train:0,nights:2,hotel:-1};
+var $=function(i){return document.getElementById(i)};
+var fa=function(n){return Number(n).toLocaleString('fa-IR')};
+function price(h){var m=h[6][S.train]+(S.nights===4?2*h[5]:0);return Math.round(m*1e6)}
+function norm(s){return String(s).replace(/[۰-۹]/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)}).replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d)}).trim()}
+
+function seg(id,items,key){
+  $(id).innerHTML=items.map(function(t,i){var on=(key==='train'?S.train===i:S.nights===t.v);
+    return '<button type="button" data-i="'+i+'" aria-pressed="'+on+'">'+t.l+'</button>'}).join('');
+}
+function drawCtl(){
+  seg('trains',TRAINS.map(function(t){return{l:t}}),'train');
+  seg('nights',[{v:2,l:'۲ شب'},{v:4,l:'۴ شب'}],'nights');
+}
+$('trains').onclick=function(e){var b=e.target.closest('button');if(!b)return;S.train=+b.dataset.i;drawAll()};
+$('nights').onclick=function(e){var b=e.target.closest('button');if(!b)return;S.nights=b.dataset.i==='0'?2:4;drawAll()};
+
+function drawHotels(){
+  $('hotels').innerHTML=HOTELS.map(function(h,i){
+    return '<label class="row"><input type="radio" name="h" value="'+i+'"'+(S.hotel===i?' checked':'')+'>'
+    +'<img class="ph" loading="lazy" alt="هتل '+h[0]+'" src="images/hotels/'+SLUG[i]+'.jpg" onerror="this.remove()">'
+    +'<div class="top"><span class="nm">'+h[0]+'</span><span class="pr">'+fa(price(h))+'<small>تومان</small></span></div>'
+    +'<div class="meta">'+h[3]+'، '+fa(h[4])+' دقیقه پیاده تا حرم</div>'
+    +'<div class="tags"><span>'+h[1]+'</span><span class="'+(h[2]==='بوفه'?'buf':'')+'">غذا: '+h[2]+'</span></div>'
+    +'<div class="xtra">هر شب اضافه: '+fa(Math.round(h[5]*1e6))+' تومان</div></label>';
+  }).join('');
+}
+$('hotels').onchange=function(e){S.hotel=+e.target.value;$('hotelErr').textContent='';drawSum()};
+
+function drawSum(){
+  var h=HOTELS[S.hotel];
+  $('sum').innerHTML=h
+    ?'<div>'+h[0]+' | قطار '+TRAINS[S.train]+' | '+fa(S.nights)+' شب</div><div>قیمت پایه نرخ‌نامه: <b>'+fa(price(h))+'</b> تومان</div><div class="note">قیمت نهایی بعد از بررسی تعداد مسافران، سن‌ها و تخفیف‌ها توسط آژانس اعلام می‌شود.</div>'
+    :'<div>هتل را انتخاب کنید تا قیمت پایه اینجا نمایش داده شود.</div>';
+}
+function drawAll(){drawCtl();drawHotels();drawSum()}
+
+/* ===== تاریخ شمسی و گروه سنی ===== */
+function j2g(jy,jm,jd){
+  jy+=1595;var days=-355668+(365*jy)+(~~(jy/33))*8+~~(((jy%33)+3)/4)+jd+(jm<7?(jm-1)*31:((jm-7)*30)+186);
+  var gy=400*~~(days/146097);days%=146097;
+  if(days>36524){gy+=100*~~(--days/36524);days%=36524;if(days>=365)days++}
+  gy+=4*~~(days/1461);days%=1461;
+  if(days>365){gy+=~~((days-1)/365);days=(days-1)%365}
+  var gd=days+1,leap=((gy%4===0&&gy%100!==0)||gy%400===0),a=[0,31,leap?29:28,31,30,31,30,31,31,30,31,30,31],gm;
+  for(gm=0;gm<13&&gd>a[gm];gm++)gd-=a[gm];
+  return [gy,gm,gd];
+}
+function parseBirth(s){
+  var m=norm(s).split(/[\/\-\.]/);if(m.length!==3||!m.every(function(x){return /^\d+$/.test(x)}))return null;
+  var y=+m[0],mo=+m[1],d=+m[2];
+  if(y<1300||mo<1||mo>12||d<1||d>(mo<=6?31:30))return null;
+  var g=j2g(y,mo,d),dt=new Date(g[0],g[1]-1,g[2]);if(dt>new Date())return null;
+  var n=new Date(),a=n.getFullYear()-g[0];
+  if(n.getMonth()+1<g[1]||(n.getMonth()+1===g[1]&&n.getDate()<g[2]))a--;
+  return{age:a,group:a<2?'نوزاد':a<12?'خردسال':'بزرگسال'};
+}
+function validNid(s){
+  s=norm(s);if(!/^\d{10}$/.test(s)||/^(\d)\1{9}$/.test(s))return false;
+  var sum=0;for(var i=0;i<9;i++)sum+=(+s[i])*(10-i);
+  var r=sum%11,c=+s[9];return r<2?c===r:c===11-r;
+}
+
+/* ===== مسافران ===== */
+function mkPax(n){
+  var d=document.createElement('div');d.className='card';
+  d.innerHTML='<h3><span>مسافر '+fa(n)+' <span class="grp"></span></span></h3>'
+  +'<div class="f">'
+  +'<div><label class="fl">نام</label><input type="text" data-k="fn" autocomplete="off"><span class="err"></span></div>'
+  +'<div><label class="fl">نام خانوادگی</label><input type="text" data-k="ln" autocomplete="off"><span class="err"></span></div>'
+  +'<div><label class="fl">کد ملی</label><input type="text" data-k="nid" class="ltr" inputmode="numeric" maxlength="10" autocomplete="off"><span class="err"></span></div>'
+  +'<div><label class="fl">تاریخ تولد (شمسی)</label><input type="text" data-k="bd" class="ltr" inputmode="numeric" placeholder="1370/05/12" autocomplete="off"><span class="err"></span></div>'
+  +'</div>';
+  d.querySelector('[data-k=bd]').oninput=function(){var p=parseBirth(this.value);d.querySelector('.grp').textContent=p?'| '+p.group:'';counts()};
+  $('pax').appendChild(d);
+}
+function counts(){
+  var c={'بزرگسال':0,'خردسال':0,'نوزاد':0},u=0;
+  Array.prototype.forEach.call($('pax').children,function(x){var p=parseBirth(x.querySelector('[data-k=bd]').value);if(p)c[p.group]++;else u++});
+  var t='بزرگسال: '+fa(c['بزرگسال'])+' | خردسال: '+fa(c['خردسال'])+' | نوزاد: '+fa(c['نوزاد'])+(u?' | تاریخ تولد نامعتبر یا خالی: '+fa(u):'');
+  $('cs').textContent=t;return t;
+}
+function setCount(n){
+  n=Math.max(1,Math.min(20,n));
+  while($('pax').children.length<n)mkPax($('pax').children.length+1);
+  while($('pax').children.length>n)$('pax').lastChild.remove();
+  $('cnt').textContent=fa(n);counts();
+}
+$('plus').onclick=function(){setCount($('pax').children.length+1)};
+$('minus').onclick=function(){setCount($('pax').children.length-1)};
+
+/* ===== ارسال ===== */
+function setErr(el,msg){el.classList.toggle('bad',!!msg);var e=el.parentNode.querySelector('.err');if(e)e.textContent=msg||''}
+function build(){
+  var bad=0,first=null,rows=[];
+  function chk(el,ok,msg){setErr(el,ok?'':msg);if(!ok){bad++;if(!first)first=el}}
+  if(S.hotel<0){bad++;$('hotelErr').textContent='یک هتل انتخاب کنید.';first=$('hotels')}
+  Array.prototype.forEach.call($('pax').children,function(c,i){
+    var g=function(k){return c.querySelector('[data-k='+k+']')};
+    var fn=g('fn'),ln=g('ln'),nid=g('nid'),bd=g('bd'),p=parseBirth(bd.value);
+    chk(fn,fn.value.trim().length>0,'نام را وارد کنید.');
+    chk(ln,ln.value.trim().length>0,'نام خانوادگی را وارد کنید.');
+    chk(nid,validNid(nid.value),'کد ملی معتبر نیست.');
+    chk(bd,!!p,'تاریخ را مثل 1370/05/12 وارد کنید.');
+    rows.push((i+1)+') '+fn.value.trim()+' '+ln.value.trim()+' | کد ملی: '+norm(nid.value)+' | تولد: '+norm(bd.value)+(p?' | '+p.group:''));
+  });
+  var cn=$('cn'),cp=$('cp');
+  chk(cn,cn.value.trim().length>2,'نام سرپرست را وارد کنید.');
+  chk(cp,/^09\d{9}$/.test(norm(cp.value)),'شماره موبایل را مثل 09123456789 وارد کنید.');
+  if(!$('ok').checked){bad++;$('okErr').textContent='برای ادامه، تأیید ارسال اطلاعات لازم است.';first=first||$('ok')}else $('okErr').textContent='';
+  if(bad){if(first&&first.scrollIntoView)first.scrollIntoView({block:'center'});return null}
+  var h=HOTELS[S.hotel];
+  return 'درخواست رزرو تور مشهد | پروان گشت کاسپین\n'
+  +'هتل: '+h[0]+' ('+h[1]+'، غذا '+h[2]+')\nقطار: '+TRAINS[S.train]+'\nمدت اقامت: '+fa(S.nights)+' شب\n'
+  +'قیمت پایه نرخ‌نامه: '+fa(price(h))+' تومان\n\nمسافران ('+fa(rows.length)+' نفر) | '+counts()+'\n'+rows.join('\n')
+  +'\n\nسرپرست: '+cn.value.trim()+' | '+norm(cp.value);
+}
+$('send').onclick=function(){
+  var t=build();if(!t)return;
+  $('txt').value=t;
+  if(navigator.share){navigator.share({title:'درخواست رزرو تور مشهد',text:t}).catch(function(){$('out').style.display='block'})}
+  else{$('out').style.display='block';$('txt').select()}
+};
+$('copy').onclick=function(){
+  var b=this,t=$('txt');t.select();
+  (navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).then(function(){b.textContent='کپی شد'},function(){document.execCommand('copy');b.textContent='کپی شد'});
+};
+
+drawAll();setCount(1);
+</script>
+</body>
+</html>
